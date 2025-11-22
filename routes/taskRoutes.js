@@ -9,6 +9,8 @@ import {
   resetCoffee
 } from '../controllers/taskController.js';
 import { validateTaskUpdate } from '../middleware/validation.js';
+import { getTaskForm } from '../controllers/taskController.js';
+import { putFormTaskCheck } from '../controllers/taskController.js';
 
 const router = Router();
 
@@ -35,5 +37,17 @@ router.delete('/homescreen/tasks/:taskID', deleteTask);
 router.get('/homescreen/tasks/9/payment-portal/', getCoffeePaymentPortalStatus);
 router.post('/homescreen/tasks/9/payment-portal/pay', payCoffee);
 router.post('/homescreen/tasks/9/payment-portal/reset', resetCoffee);
+
+/** 
+ * FORM TASK:
+ * GET /user/homescreen/tasks/:taskID/form
+ */
+router.get('/homescreen/tasks/:taskID/form', getTaskForm);
+
+/**
+ * FORM TASK:
+ * PUT /user/homescreen/tasks/:taskID/form-check
+ */
+router.put('/homescreen/tasks/:taskID/form-check', putFormTaskCheck);
 
 export default router;

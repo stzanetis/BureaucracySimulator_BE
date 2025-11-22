@@ -47,3 +47,46 @@ export const taskTemplates = [
 export const coffeePaymentState = {
   paymentAccepted: false
 };
+
+/**
+ * FORM TASK:
+ * Form templates.
+ */
+export const formTemplates = {
+  2: {
+    title: "Official Form 27B-6",
+    description: "Please complete this form with accurate information.",
+    fields: [
+      { name: "fullName", label: "Full Legal Name", type: "text", placeholder: "First Middle Last", required: true },
+      { name: "idNumber", label: "Identification Number", type: "text", placeholder: "000-000-0000", required: true },
+      { name: "dateOfBirth", label: "Date of Birth", type: "date", required: true },
+      {
+        name: "purpose",
+        label: "Purpose of Request",
+        type: "select",
+        required: true,
+        options: ["Personal Use", "Business Use", "Official Use", "Other (Please specify in Signature)"]
+      },
+      { name: "address", label: "Residential Address", type: "text", placeholder: "Street, City, State, ZIP", required: true },
+      { name: "signature", label: "Signature (Type your name)", type: "textarea", placeholder: "Your signature", required: true }
+    ]
+  },
+  5: {
+    title: "Official Form 27B-6",
+    description: "Please complete this form with accurate information.",
+    fields: [
+      { name: "fullName", label: "Full Legal Name", type: "text", placeholder: "First Middle Last", required: true },
+      { name: "idNumber", label: "Identification Number", type: "text", placeholder: "000-000-0000", required: true },
+      { name: "dateOfBirth", label: "Date of Birth", type: "date", required: true },
+      {
+        name: "purpose",
+        label: "Purpose of Request",
+        type: "select",
+        required: true,
+        options: ["Personal Use", "Business Use", "Official Use", "Other (Please specify in Signature)"]
+      },
+      { name: "address", label: "Residential Address", type: "text", placeholder: "Street, City, State, ZIP", required: true },
+      { name: "signature", label: "Signature (Type your name)", type: "textarea", placeholder: "Your signature", required: true }
+    ]
+  }
+};

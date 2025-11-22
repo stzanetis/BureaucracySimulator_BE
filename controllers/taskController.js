@@ -8,6 +8,8 @@ import {
   updateTaskStatus
 } from '../services/taskService.js';
 import { sendSuccess } from '../utils/responses.js';
+import { getFormDefinition } from '../services/taskService.js';
+import { updateFormTaskStatus } from '../services/taskService.js';
 
 /**
  * GET /user/homescreen/todolist
@@ -135,6 +137,49 @@ export const resetCoffee = async (req, res, next) => {
   try {
     const data = await resetCoffeePayment();
     sendSuccess(res, data, 'Coffee payment reset.');
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * FORM TASK:
+ * GET /user/homescreen/tasks/:taskID/form
+ * Retrieve form definition for a Form task. 
+ * 
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {Function} next
+ * @returns {Promise<void>}
+ */
+export const getTaskForm = async (req, res, next) => {
+  try {
+    const taskId = Number(req.params.taskID);
+    const form = await getFormDefinition(taskId);
+    sendSuccess(res, form, 'Form definition retrieved.');
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * FORM TASK:
+ * PUT /user/homescreen/tasks/:taskID/form-check
+ * Submit user input and return completion status.
+ * 
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {Function} next
+ * @returns {Promise<void>}
+ */
+export const putFormTaskCheck = async (req, res, next) => {
+  try {
+    const taskId = Number(req.params.taskID);
+    const { userInput } = req.body;
+
+    const isTaskCompleted = await updateFormTaskStatus(taskId, userInput);
+
+    sendSuccess(res, { isTaskCompleted }, 'Form task evaluated.');
   } catch (error) {
     next(error);
   }
