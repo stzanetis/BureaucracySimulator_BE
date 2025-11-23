@@ -48,16 +48,3 @@ It uses:
 > - 10 accessible routes
 > - 1 GET, 1 POST, 1 PUT, 1 DELETE (all exist on different resources; leaderboard & task routes show near-CRUD)
 > - At least 3 interacting entities (Users, Tasks, Leaderboard entries, Departments, Attempts)
-
-## Authentication
-
-All routes are protected by **HTTP Basic Auth**:
-
-- Default username: `admin`
-- Default password: `supersecret`
-
-You can override them via `.env`:
-
-```env
-BASIC_AUTH_USER=admin
-BASIC_AUTH_PASS=supersecret

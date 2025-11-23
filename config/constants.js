@@ -15,8 +15,3 @@ export const DEFAULT_SONGLIST = [
 export const ABOUT_US_TEXT =
   'We are the Department of Needless Complexity, dedicated to preserving the spirit of bureaucratic suffering in digital form.';
 
-/**
- * Basic auth default values (can be overridden via environment variables).
- */
-export const BASIC_AUTH_DEFAULT_USER = 'admin';
-export const BASIC_AUTH_DEFAULT_PASS = 'supersecret';

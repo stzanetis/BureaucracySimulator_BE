@@ -1,7 +1,3 @@
-import {
-  BASIC_AUTH_DEFAULT_PASS,
-  BASIC_AUTH_DEFAULT_USER
-} from '../config/constants.js';
 import { AppError } from '../utils/helpers.js';
 
 /**
@@ -9,7 +5,9 @@ import { AppError } from '../utils/helpers.js';
  * All routes behind this middleware require:
  *   Authorization: Basic base64(username:password)
  *
- * Default credentials come from env or constants.
+ * Credentials come from environment variables:
+ *   - BASIC_AUTH_USER
+ *   - BASIC_AUTH_PASS
  *
  * @param {import('express').Request} req
  * @param {import('express').Response} res
@@ -27,8 +25,12 @@ export const basicAuth = (req, res, next) => {
     const decoded = Buffer.from(base64Credentials, 'base64').toString('utf8');
     const [username, password] = decoded.split(':');
 
-    const expectedUser = process.env.BASIC_AUTH_USER || BASIC_AUTH_DEFAULT_USER;
-    const expectedPass = process.env.BASIC_AUTH_PASS || BASIC_AUTH_DEFAULT_PASS;
+    const expectedUser = process.env.BASIC_AUTH_USER;
+    const expectedPass = process.env.BASIC_AUTH_PASS;
+
+    if (!expectedUser || !expectedPass) {
+      throw new AppError('Server misconfiguration: Basic auth credentials not set.', 500, 'AUTH_CONFIG_ERROR');
+    }
 
     if (username !== expectedUser || password !== expectedPass) {
       throw new AppError('Invalid credentials.', 401, 'AUTH_INVALID');

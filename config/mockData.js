@@ -4,9 +4,9 @@
  */
 
 export const leaderboard = [
-  { name: 'Kafka Enjoyer', score: 420 },
-  { name: 'Paper Pusher', score: 666 },
-  { name: 'Form A23 Survivor', score: 999 }
+  { name: 'Kafka Enjoyer', score: 235 },
+  { name: 'Paper Pusher', score: 657 },
+  { name: 'Form A23 Survivor', score: 132 }
 ];
 
 export const users = [];
