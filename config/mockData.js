@@ -1,8 +1,3 @@
-/**
- * Simple in-memory mock data store.
- * This is reset every time the server restarts (GDPR-friendly, no persistence).
- */
-
 export const leaderboard = [
   { name: 'Kafka Enjoyer', score: 235 },
   { name: 'Paper Pusher', score: 657 },
@@ -36,9 +31,7 @@ export const taskTemplates = [
   { id: 6, taskType: 'PUZZLE', completed: false, pageName: 'puzzle-task' },
   { id: 7, taskType: 'DISPLAY', completed: false, pageName: 'display-task' },
   { id: 8, taskType: 'SIGNATURE', completed: false, pageName: 'signature-task' },
-  // ID 9 is reserved for the Coffee Task payment portal per OpenAPI spec
-  { id: 9, taskType: 'COFFEE', completed: false, pageName: 'coffee-task' },
-  { id: 10, taskType: 'MISC', completed: false, pageName: 'misc-task' }
+  { id: 9, taskType: 'COFFEE', completed: false, pageName: 'coffee-task' }
 ];
 
 /**
@@ -47,6 +40,25 @@ export const taskTemplates = [
 export const coffeePaymentState = {
   paymentAccepted: false
 };
+
+export const chatbotMessages = [
+  {
+    id: 1,
+    text: 'Welcome to the Department of Needless Complexity.'
+  },
+  {
+    id: 2,
+    text: 'Your application has been received. Please complete all tasks in the order they appear.'
+  },
+  {
+    id: 3,
+    text: 'Remember: Shortcuts are not permitted. Enjoy your stay.'
+  },
+  {
+    id: 4,
+    text: 'Timer has started. Good luck, citizen.'
+  }
+];
 
 export const CAPTCHAs = [
   {
