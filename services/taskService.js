@@ -1,6 +1,6 @@
 import { coffeePaymentState, taskTemplates, users } from '../config/mockData.js';
 import { AppError } from '../utils/helpers.js';
-import { formTemplates } from '../config/mockData.js';
+import { formTemplate, puzzleTemplates } from '../config/mockData.js';
 
 /**
  * Retrieve the current user's to-do list.
@@ -127,7 +127,7 @@ export const resetCoffeePayment = async () => {
  * @throws {AppError}
  */
 export const getFormDefinition = async (taskId) => {
-  const form = formTemplates[taskId];
+  const form = formTemplate;
 
   if (!form) {
     throw new AppError('No form found for this task.', 404, 'FORM_NOT_FOUND');
@@ -162,6 +162,64 @@ export const updateFormTaskStatus = async (taskId, userInput) => {
 
   const serialized = JSON.stringify(userInput);
   const isTaskCompleted = serialized.length % 2 === 0;
+
+  currentUser.toDoList[taskIndex].completed = isTaskCompleted;
+
+  return isTaskCompleted;
+};
+
+/**
+ * PUZZLE TASK:
+ * Retrieve the puzzle configuration.
+ * 
+ * @param {number} taskId
+ * @returns {Promise<any>}
+ * @throws {AppError}
+ */
+export const getPuzzleDefinition = async () => {
+  const PUZZLE_COUNT = 2;
+
+  const shuffled = [...puzzleTemplates].sort(() => Math.random() - 0.5);
+
+  const puzzles = shuffled.slice(0, PUZZLE_COUNT).map((p, idx) => ({
+    id: idx + 1,
+    ...p
+  }));
+
+  return { puzzles };
+};
+
+
+/**
+ * Puzzle TASK:
+ * Update task with user input and compute completion status.
+ *
+ * @param {number} taskId
+ * @param {string} puzzleKey
+ * @param {any} userInput
+ * @returns {Promise<boolean>}
+ */
+export const updatePuzzleTaskStatus = async (taskId, puzzleNumber, puzzleKey, userInput) => {
+  const currentUser = users[users.length - 1];
+
+  if (!currentUser) {
+    throw new AppError('No active user found. Start a game first.', 404, 'NO_ACTIVE_USER');
+  }
+
+  const taskIndex = currentUser.toDoList.findIndex((t) => t.id === taskId);
+  if (taskIndex === -1) {
+    throw new AppError('Task not found.', 404, 'NOT_FOUND');
+  }
+
+  const puzzle = puzzleTemplates.find(p => p.puzzleKey === puzzleKey);
+  if (!puzzle) {
+    throw new AppError(`Puzzle key '${puzzleKey}' not found`, 404, "NO_PUZZLE");
+  }
+
+  const answer = String(userInput);
+  const correct = String(puzzle.correctAnswer);
+
+  const isTaskCompleted = answer === correct;
 
   currentUser.toDoList[taskIndex].completed = isTaskCompleted;
 

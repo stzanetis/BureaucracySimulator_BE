@@ -8,8 +8,8 @@ import {
   updateTaskStatus
 } from '../services/taskService.js';
 import { sendSuccess } from '../utils/responses.js';
-import { getFormDefinition } from '../services/taskService.js';
-import { updateFormTaskStatus } from '../services/taskService.js';
+import { getFormDefinition, updateFormTaskStatus } from '../services/taskService.js';
+import { getPuzzleDefinition, updatePuzzleTaskStatus } from '../services/taskService.js';
 
 /**
  * GET /user/homescreen/todolist
@@ -152,11 +152,11 @@ export const resetCoffee = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getTaskForm = async (req, res, next) => {
+export const getFormTask = async (req, res, next) => {
   try {
     const taskId = Number(req.params.taskID);
     const form = await getFormDefinition(taskId);
-    sendSuccess(res, form, 'Form definition retrieved.');
+    sendSuccess(res, form, 'Form loaded.');
   } catch (error) {
     next(error);
   }
@@ -182,5 +182,51 @@ export const putFormTaskCheck = async (req, res, next) => {
     sendSuccess(res, { isTaskCompleted }, 'Form task evaluated.');
   } catch (error) {
     next(error);
+  }
+};
+
+/** PUZZLE TASK:
+ * GET /user/homescreen/tasks/:taskID/puzzle
+ * Retrieve puzzle definition for a Puzzle task. 
+ * 
+ * @param {import('express').Request} req
+ * @param {import('express').Response } res
+ * @param {Function} next
+ * @returns {Promise<void>}
+ */
+export const getPuzzleTask = async (req, res, next) => {
+  try {
+    const data = await getPuzzleDefinition();
+    sendSuccess(res, data, 'Puzzle loaded.');
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * PUZZLE TASK:
+ * PUT /user/homescreen/tasks/:taskID/puzzle-check
+ * Submit puzzle answer and return completion status.
+ * 
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {Function} next
+ * @returns {Promise<void>}
+ */
+export const putPuzzleTaskCheck = async (req, res, next) => {
+  try {
+    const taskId = Number(req.params.taskID);
+    const { puzzleNumber, puzzleKey, answer } = req.body;
+
+    const isTaskCompleted = await updatePuzzleTaskStatus(
+      taskId,
+      puzzleNumber,
+      puzzleKey,
+      answer
+    );
+
+    sendSuccess(res, { isTaskCompleted }, "Puzzle evaluated.");
+  } catch (err) {
+    next(err);
   }
 };
