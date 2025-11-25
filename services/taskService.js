@@ -1,4 +1,5 @@
 import { coffeePaymentState, taskTemplates, users } from '../config/mockData.js';
+import { CAPTCHAs } from '../config/mockData.js'
 import { AppError } from '../utils/helpers.js';
 import { formTemplate, puzzleTemplates } from '../config/mockData.js';
 
@@ -20,6 +21,7 @@ export const getCurrentToDoList = async () => {
 
 /**
  * Retrieve a single task by ID (from current user's list).
+ * If it's a CAPTCHA task, attach a random CAPTCHA challenge.
  *
  * @param {number} taskId
  * @returns {Promise<any>}
@@ -34,6 +36,15 @@ export const getTaskByIdForCurrentUser = async (taskId) => {
   const task = currentUser.toDoList.find((t) => t.id === taskId);
   if (!task) {
     throw new AppError('Task not found.', 404, 'NOT_FOUND');
+  }
+
+  // If this is a CAPTCHA task, attach a random CAPTCHA challenge
+  if (task.taskType === 'CAPTCHA' && CAPTCHAs.length > 0) {
+    const randomCaptcha = CAPTCHAs[Math.floor(Math.random() * CAPTCHAs.length)];
+    return {
+      ...task,
+      captcha: randomCaptcha
+    };
   }
 
   return task;
