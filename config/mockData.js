@@ -44,19 +44,19 @@ export const coffeePaymentState = {
 export const chatbotMessages = [
   {
     id: 1,
-    text: 'Welcome to the Department of Needless Complexity.'
+    text: 'Welcome to the Department of Needless Complexity. We hope you brought snacks.'
   },
   {
     id: 2,
-    text: 'Your application has been received. Please complete all tasks in the order they appear.'
+    text: 'Your application has been received and immediately lost. Don\'t worry, we\'ll find it... eventually.'
   },
   {
     id: 3,
-    text: 'Remember: Shortcuts are not permitted. Enjoy your stay.'
+    text: 'Did you really think this would be quick? How adorable.'
   },
   {
     id: 4,
-    text: 'Timer has started. Good luck, citizen.'
+    text: 'Spoiler alert: You\'re already behind schedule.'
   }
 ];
 
