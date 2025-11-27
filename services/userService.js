@@ -1,4 +1,4 @@
-import { users, taskTemplates } from '../config/mockData.js';
+import { users, taskTemplates, chatbotMessages } from '../config/mockData.js';
 import { createSeededRng } from '../utils/helpers.js';
 
 /**
@@ -14,16 +14,26 @@ export const createUserWithTasks = async (nickname, seed) => {
     .slice()
     .sort(() => rng() - 0.5);
 
-  const toDoList = shuffledTemplates.slice(0, 4).map((t) => ({
-    ...t,
-    completed: false
-  }));
+  const seenTaskTypes = new Set();
+  const toDoList = [];
+
+  for (const template of shuffledTemplates) {
+    if (!seenTaskTypes.has(template.taskType)) {
+      toDoList.push({
+        ...template,
+        completed: false
+      });
+      seenTaskTypes.add(template.taskType);
+    }
+    if (toDoList.length >= 4) break;
+  }
 
   const newUser = {
     id: users.length + 1,
     nickname: nickname.trim(),
     seed: Number(seed),
-    toDoList
+    toDoList,
+    chatbotMessages
   };
 
   users.push(newUser);

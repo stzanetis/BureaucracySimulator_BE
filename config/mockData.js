@@ -1,12 +1,7 @@
-/**
- * Simple in-memory mock data store.
- * This is reset every time the server restarts (GDPR-friendly, no persistence).
- */
-
 export const leaderboard = [
-  { name: 'Kafka Enjoyer', score: 420 },
-  { name: 'Paper Pusher', score: 666 },
-  { name: 'Form A23 Survivor', score: 999 }
+  { name: 'Kafka Enjoyer', score: 235 },
+  { name: 'Paper Pusher', score: 657 },
+  { name: 'Form A23 Survivor', score: 132 }
 ];
 
 export const users = [];
@@ -36,9 +31,7 @@ export const taskTemplates = [
   { id: 6, taskType: 'PUZZLE', completed: false, pageName: 'puzzle-task' },
   { id: 7, taskType: 'DISPLAY', completed: false, pageName: 'display-task' },
   { id: 8, taskType: 'SIGNATURE', completed: false, pageName: 'signature-task' },
-  // ID 9 is reserved for the Coffee Task payment portal per OpenAPI spec
-  { id: 9, taskType: 'COFFEE', completed: false, pageName: 'coffee-task' },
-  { id: 10, taskType: 'MISC', completed: false, pageName: 'misc-task' }
+  { id: 9, taskType: 'COFFEE', completed: false, pageName: 'coffee-task' }
 ];
 
 /**
@@ -47,6 +40,25 @@ export const taskTemplates = [
 export const coffeePaymentState = {
   paymentAccepted: false
 };
+
+export const chatbotMessages = [
+  {
+    id: 1,
+    text: 'Welcome to the Department of Needless Complexity. We hope you brought snacks.'
+  },
+  {
+    id: 2,
+    text: 'Your application has been received and immediately lost. Don\'t worry, we\'ll find it... eventually.'
+  },
+  {
+    id: 3,
+    text: 'Did you really think this would be quick? How adorable.'
+  },
+  {
+    id: 4,
+    text: 'Spoiler alert: You\'re already behind schedule.'
+  }
+];
 
 /**
  * FORM TASK:

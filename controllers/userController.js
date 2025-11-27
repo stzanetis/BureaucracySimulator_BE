@@ -15,7 +15,7 @@ export const postUserHomeScreen = async (req, res, next) => {
   try {
     const { nickname, seed } = req.body;
     const user = await createUserWithTasks(nickname, Number(seed));
-    sendSuccess(res, user.toDoList, 'User created and to-do list generated.', 200);
+    sendSuccess(res, user, 'User created and to-do list generated.', 200);
   } catch (error) {
     next(error);
   }

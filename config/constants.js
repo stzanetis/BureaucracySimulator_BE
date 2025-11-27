@@ -13,10 +13,5 @@ export const DEFAULT_SONGLIST = [
  * About Us paragraph (mock).
  */
 export const ABOUT_US_TEXT =
-  'We are the Department of Needless Complexity, dedicated to preserving the spirit of bureaucratic suffering in digital form.';
+  'Fight through the endless torment of bureaucracy to claim the ultimate prize: a mysterious and probably useless document. \n\nBureaucratic Simulator was developed as part of the Software Engineering 1 class project of the Electrical and Computer Engineering department at the Aristotle University of Thessaloniki. \n\nCreated by a team of four people, \n\nIoannis Konstantakis \nIasonas Lambrinidis \nSavvas Tzanetis \nVasilis Zoidis \n\nOur goal was to create a game parody of the frustrating maze that is any government website.';
 
-/**
- * Basic auth default values (can be overridden via environment variables).
- */
-export const BASIC_AUTH_DEFAULT_USER = 'admin';
-export const BASIC_AUTH_DEFAULT_PASS = 'supersecret';
