@@ -20,7 +20,7 @@ export const getCurrentToDoList = async () => {
 };
 
 /**
- * Retrieve a single task by ID (from current user's list).
+ * Retrieve a single task by ID (from current user's list or global templates).
  * If it's a CAPTCHA task, attach a random CAPTCHA challenge.
  *
  * @param {number} taskId
@@ -33,7 +33,15 @@ export const getTaskByIdForCurrentUser = async (taskId) => {
     throw new AppError('No active user found. Start a game first.', 404, 'NO_ACTIVE_USER');
   }
 
-  const task = currentUser.toDoList.find((t) => t.id === taskId);
+  // First, try to find the task in the user's toDoList
+  let task = currentUser.toDoList.find((t) => t.id === taskId);
+  
+  // If not found in user's list, look in global task templates
+  if (!task) {
+    task = taskTemplates.find((t) => t.id === taskId);
+  }
+  
+  // If still not found, throw error
   if (!task) {
     throw new AppError('Task not found.', 404, 'NOT_FOUND');
   }
