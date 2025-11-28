@@ -224,7 +224,7 @@ export const CAPTCHAs = [
   },
   {
     id: 5,
-    text: 'Select all images containing R****E',
+    text: 'Select all images containing RESUME',
     images: [
       { id: 0, url: 'https://www.my-resume-templates.com/wp-content/uploads/2023/07/job-resume-template-259.jpg' },
       { id: 1, url: 'https://www.resume.org/wp-content/uploads/2025/06/5108511-resume-example-for-students-with-no-experience.pdf.jpeg' },
