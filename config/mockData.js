@@ -1,7 +1,7 @@
 export const leaderboard = [
-  { name: 'Kafka Enjoyer', score: 235 },
-  { name: 'Paper Pusher', score: 657 },
-  { name: 'Form A23 Survivor', score: 132 }
+  { name: 'Kafka Enjoyer', score: 2:35 },
+  { name: 'Paper Pusher', score: 6:57 },
+  { name: 'Form A23 Survivor', score: 1:32 }
 ];
 
 export const users = [];
