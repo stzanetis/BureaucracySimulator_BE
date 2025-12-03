@@ -1,0 +1,83 @@
+import 'dotenv/config';
+import http from "node:http";
+import test from "ava";
+import got from "got";
+import app from "../app.js";
+
+test.before(async (t) => {
+	t.context.server = http.createServer(app);
+	const server = t.context.server.listen();
+	const { port } = server.address();
+	
+	const username = process.env.BASIC_AUTH_USER;
+	const password = process.env.BASIC_AUTH_PASS;
+	const credentials = Buffer.from(`${username}:${password}`).toString('base64');
+	t.context.got = got.extend({
+		responseType: "json",
+		prefixUrl: `http://localhost:${port}`,
+		headers: {
+			'Authorization': `Basic ${credentials}`
+		},
+		throwHttpErrors: false
+	});
+});
+
+test.after.always((t) => {
+	t.context.server.close();
+});
+
+test("GET request to non-existent route returns 404", async (t) => {
+	const { body, statusCode } = await t.context.got("nonexistent/route");
+	
+	t.is(statusCode, 404);
+	t.is(body.success, false);
+	t.is(body.error, 'NOT_FOUND');
+	t.truthy(body.message);
+	t.true(body.message.includes('not found'));
+});
+
+test("POST to non-existent route returns 404", async (t) => {
+	const { body, statusCode } = await t.context.got.post("invalid/endpoint", {
+		json: { test: "data" }
+	});
+	
+	t.is(statusCode, 404);
+	t.is(body.success, false);
+});
+
+test("PUT to non-existent route returns 404", async (t) => {
+	const { body, statusCode } = await t.context.got.put("invalid/endpoint", {
+		json: { test: "data" }
+	});
+	
+	t.is(statusCode, 404);
+	t.is(body.success, false);
+});
+
+test("DELETE to non-existent route returns 404", async (t) => {
+	const { body, statusCode } = await t.context.got.delete("invalid/endpoint");
+	
+	t.is(statusCode, 404);
+	t.is(body.success, false);
+});
+
+test("Invalid JSON in request body is handled", async (t) => {
+	const { statusCode } = await t.context.got.post("user/", {
+		body: "invalid json {",
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	
+	// Express will return 400 for malformed JSON
+	t.is(statusCode, 400);
+});
+
+test("Error responses have correct structure", async (t) => {
+	const { body } = await t.context.got("nonexistent/route");
+	
+	t.is(body.success, false);
+	t.truthy(body.error);
+	t.truthy(body.message);
+	t.is(body.data, null);
+});
