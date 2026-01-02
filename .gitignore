@@ -10,3 +10,4 @@ coverage
 .idea
 .vscode
 testapi
+k6/results
