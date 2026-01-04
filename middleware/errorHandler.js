@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const notFoundHandler = (req, res, next) => {
+export const notFoundHandler = (req, res, _next) => {
   res.status(404).json({
     success: false,
     data: null,
@@ -25,7 +25,7 @@ export const notFoundHandler = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, _req, res, _next) => {
   // eslint-disable-next-line no-console
   console.error('Error:', err);
 
