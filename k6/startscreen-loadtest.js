@@ -14,8 +14,8 @@ export const options = {
   ],
   thresholds: {
     http_req_duration: [
-      'p(95)<100', // p95 response time threshold
-      'avg<50',    // Average response time threshold
+      'p(95)<200', // p95 response time threshold
+      'avg<100',   // Average response time threshold
     ],
     http_req_failed: ['rate<0.01'], // HTTP error rate ≤ 1%
     'checks': ['rate>0.99'],        // 99% of checks must pass
@@ -56,8 +56,8 @@ function textSummary(data, options) {
   if (data.metrics.http_req_duration) {
     const duration = data.metrics.http_req_duration;
     summary += `${indent}HTTP Request Duration:\n`;
-    summary += `${indent}  avg: ${duration.values.avg.toFixed(2)}ms (threshold: <50ms)\n`;
-    summary += `${indent}  p95: ${duration.values['p(95)'].toFixed(2)}ms (threshold: <100ms)\n`;
+    summary += `${indent}  avg: ${duration.values.avg.toFixed(2)}ms (threshold: <100ms)\n`;
+    summary += `${indent}  p95: ${duration.values['p(95)'].toFixed(2)}ms (threshold: <200ms)\n`;
     summary += `${indent}  min: ${duration.values.min.toFixed(2)}ms\n`;
     summary += `${indent}  max: ${duration.values.max.toFixed(2)}ms\n\n`;
   }

@@ -18,8 +18,8 @@ export const options = {
   ],
   thresholds: {
     http_req_duration: [
-      'p(95)<200',  // p95 response time threshold
-      'avg<100',    // Average response time threshold
+      'p(95)<200', // p95 response time threshold
+      'avg<100',   // Average response time threshold
     ],
     http_req_failed: ['rate<0.01'], // HTTP error rate ≤ 1%
     'checks': ['rate>0.99'],        // 99% of checks must pass
