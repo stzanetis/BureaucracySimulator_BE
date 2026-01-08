@@ -13,7 +13,7 @@ import { AppError } from '../utils/helpers.js';
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const basicAuth = (req, res, next) => {
+export const basicAuth = (req, _res, next) => {
   try {
     const header = req.headers.authorization;
 

@@ -11,7 +11,7 @@ import { sendSuccess } from '../utils/responses.js';
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getEndscreenStats = async (req, res, next) => {
+export const getEndscreenStats = async (_req, res, next) => {
   try {
     // Simple mock: assume last recorded expired time is mid-percentile
     const elapsedTime = 145;

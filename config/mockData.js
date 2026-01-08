@@ -143,8 +143,8 @@ export const puzzleTemplates = [
     title: "Analysis of the Grooming Compliance Mandate",
     question:
       "Imagine a town where, by law, every man must shave daily. But they don’t have to shave themselves. " + 
-      "For those who don’t want to, the town has its barber. The law states exactly: \b\“Whoever does not shave himself is shaved by the barber.”\b\ " +
-      "\n\So then the question arises: \nWho shaves the barber?",
+      "For those who don’t want to, the town has its barber. The law states exactly: \b“Whoever does not shave himself is shaved by the barber.”\b " +
+      "\nSo then the question arises: \nWho shaves the barber?",
     correctAnswer: "Russell",
     inputPlaceholder: "Type your answer..."
   },

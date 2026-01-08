@@ -145,7 +145,7 @@ export const resetCoffeePayment = async () => {
  * @returns {Promise<{formTitle: string, description: string, fields: Array}>}
  * @throws {AppError}
  */
-export const getFormDefinition = async (taskId) => {
+export const getFormDefinition = async (_taskId) => {
   const form = formTemplate;
 
   if (!form) {
@@ -218,7 +218,7 @@ export const getPuzzleDefinition = async () => {
  * @param {any} userInput
  * @returns {Promise<boolean>}
  */
-export const updatePuzzleTaskStatus = async (taskId, puzzleNumber, puzzleKey, userInput) => {
+export const updatePuzzleTaskStatus = async (taskId, _puzzleNumber, puzzleKey, userInput) => {
   const currentUser = users[users.length - 1];
 
   if (!currentUser) {

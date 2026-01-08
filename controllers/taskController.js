@@ -20,7 +20,7 @@ import { getPuzzleDefinition, updatePuzzleTaskStatus } from '../services/taskSer
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getToDoList = async (req, res, next) => {
+export const getToDoList = async (_req, res, next) => {
   try {
     const data = await getCurrentToDoList();
     sendSuccess(res, data, 'To-do list retrieved.');
@@ -97,7 +97,7 @@ export const deleteTask = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getCoffeePaymentPortalStatus = async (req, res, next) => {
+export const getCoffeePaymentPortalStatus = async (_req, res, next) => {
   try {
     const data = await getCoffeePaymentStatus();
     sendSuccess(res, data, 'Coffee payment status retrieved.');
@@ -115,7 +115,7 @@ export const getCoffeePaymentPortalStatus = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const payCoffee = async (req, res, next) => {
+export const payCoffee = async (_req, res, next) => {
   try {
     const data = await payForCoffee();
     sendSuccess(res, data, 'Coffee payment completed.');
@@ -133,7 +133,7 @@ export const payCoffee = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const resetCoffee = async (req, res, next) => {
+export const resetCoffee = async (_req, res, next) => {
   try {
     const data = await resetCoffeePayment();
     sendSuccess(res, data, 'Coffee payment reset.');
@@ -194,7 +194,7 @@ export const putFormTaskCheck = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getPuzzleTask = async (req, res, next) => {
+export const getPuzzleTask = async (_req, res, next) => {
   try {
     const data = await getPuzzleDefinition();
     sendSuccess(res, data, 'Puzzle loaded.');

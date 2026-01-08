@@ -10,7 +10,7 @@ import { sendSuccess } from '../utils/responses.js';
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getAboutUs = async (req, res, next) => {
+export const getAboutUs = async (_req, res, next) => {
   try {
     const paragraph = await getAboutUsText();
     sendSuccess(res, { paragraph }, 'About Us content retrieved.');
