@@ -1,4 +1,4 @@
-import { users, taskTemplates, chatbotMessages } from '../config/mockData.js';
+import { users, taskTemplates, chatbotMessages } from '../config/mockData/index.js';
 import { createSeededRng } from '../utils/helpers.js';
 
 /**

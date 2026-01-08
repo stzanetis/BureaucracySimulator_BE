@@ -1,4 +1,4 @@
-import { leaderboard } from '../config/mockData.js';
+import { leaderboard } from '../config/mockData/index.js';
 import { AppError } from '../utils/helpers.js';
 
 /**

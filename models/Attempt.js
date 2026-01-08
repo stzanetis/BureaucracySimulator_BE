@@ -32,6 +32,10 @@ const attemptSchema = new Schema(
   }
 );
 
+// Performance indexes
+attemptSchema.index({ score: -1 });
+attemptSchema.index({ createdAt: -1 });
+
 /**
  * Mongoose model for game attempts.
  * Uses existing model if already compiled (for hot-reloading support).
