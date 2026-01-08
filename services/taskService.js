@@ -214,11 +214,12 @@ export const getPuzzleDefinition = async () => {
  * Update task with user input and compute completion status.
  *
  * @param {number} taskId
- * @param {string} puzzleKey
- * @param {any} userInput
+ * @param {object} puzzleAnswer - Object containing puzzleKey and answer
+ * @param {string} puzzleAnswer.puzzleKey
+ * @param {any} puzzleAnswer.answer
  * @returns {Promise<boolean>}
  */
-export const updatePuzzleTaskStatus = async (taskId, _puzzleNumber, puzzleKey, userInput) => {
+export const updatePuzzleTaskStatus = async (taskId, puzzleAnswer) => {
   const currentUser = users[users.length - 1];
 
   if (!currentUser) {
@@ -230,12 +231,12 @@ export const updatePuzzleTaskStatus = async (taskId, _puzzleNumber, puzzleKey, u
     throw new AppError('Task not found.', 404, 'NOT_FOUND');
   }
 
-  const puzzle = puzzleTemplates.find(p => p.puzzleKey === puzzleKey);
+  const puzzle = puzzleTemplates.find(p => p.puzzleKey === puzzleAnswer.puzzleKey);
   if (!puzzle) {
-    throw new AppError(`Puzzle key '${puzzleKey}' not found`, 404, "NO_PUZZLE");
+    throw new AppError(`Puzzle key '${puzzleAnswer.puzzleKey}' not found`, 404, "NO_PUZZLE");
   }
 
-  const answer = String(userInput);
+  const answer = String(puzzleAnswer.answer);
   const correct = String(puzzle.correctAnswer);
 
   const isTaskCompleted = answer === correct;
