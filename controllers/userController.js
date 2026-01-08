@@ -30,7 +30,7 @@ export const postUserHomeScreen = async (req, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getUsers = async (_req, res, next) => {
+export const getUsers = async (_, res, next) => {
   try {
     const data = await getAllUsers();
     sendSuccess(res, data, 'Users retrieved.');

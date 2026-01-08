@@ -11,7 +11,7 @@ import {
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const validateUser = (req, _res, next) => {
+export const validateUser = (req, _, next) => {
   try {
     validateUserPayload(req.body);
     next();
@@ -27,7 +27,7 @@ export const validateUser = (req, _res, next) => {
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const validateElapsedTime = (req, _res, next) => {
+export const validateElapsedTime = (req, _, next) => {
   try {
     validateElapsedTimePayload(req.body);
     next();
@@ -43,7 +43,7 @@ export const validateElapsedTime = (req, _res, next) => {
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const validateTaskUpdate = (req, _res, next) => {
+export const validateTaskUpdate = (req, _, next) => {
   try {
     validateTaskUpdatePayload(req.body);
     next();
