@@ -91,7 +91,7 @@ jobs:
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
 
       - name: Run Startscreen Load Test
-        run: k6 run k6/startscreen-loadtest.js
+        run: k6 run k6/startscreen-load.test.js
         env:
           BASE_URL: http://localhost:4000
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
