@@ -154,8 +154,7 @@ export const resetCoffee = async (_req, res, next) => {
  */
 export const getFormTask = async (req, res, next) => {
   try {
-    const taskId = Number(req.params.taskID);
-    const form = await getFormDefinition(taskId);
+    const form = await getFormDefinition();
     sendSuccess(res, form, 'Form loaded.');
   } catch (error) {
     next(error);
