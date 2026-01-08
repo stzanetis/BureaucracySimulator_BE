@@ -141,11 +141,10 @@ export const resetCoffeePayment = async () => {
  * FORM TASK:
  * Retrieve the form configuration.
  * 
- * @param {number} taskId
  * @returns {Promise<{formTitle: string, description: string, fields: Array}>}
  * @throws {AppError}
  */
-export const getFormDefinition = async (_taskId) => {
+export const getFormDefinition = async () => {
   const form = formTemplate;
 
   if (!form) {

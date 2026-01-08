@@ -75,7 +75,7 @@ const validateCredentials = (username, password, expectedUser, expectedPass) => 
  * // Protect a route with basic auth
  * router.get('/protected', basicAuth, protectedHandler);
  */
-export const basicAuth = (req, _res, next) => {
+export const basicAuth = (req, _, next) => {
   try {
     const { username, password } = extractCredentials(req.headers.authorization);
     const { expectedUser, expectedPass } = getExpectedCredentials();

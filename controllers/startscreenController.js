@@ -10,7 +10,7 @@ import { sendSuccess } from '../utils/responses.js';
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getStartscreen = async (_req, res, next) => {
+export const getStartscreen = async (_, res, next) => {
   try {
     const songlist = await getSongList();
     sendSuccess(res, { songlist }, 'Startscreen song list retrieved.');

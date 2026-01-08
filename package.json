@@ -14,9 +14,7 @@
     "k6:setup": "mkdir -p k6/results",
     "k6:load:leaderboard": "npm run k6:setup && k6 run k6/leaderboard-load.test.js",
     "k6:spike:leaderboard": "npm run k6:setup && k6 run k6/leaderboard-spike.test.js",
-    "k6:load:startscreen": "npm run k6:setup && k6 run k6/startscreen-load.test.js",
-    "k6:spike:startscreen": "npm run k6:setup && k6 run k6/startscreen-spike.test.js",
-    "k6:all": "npm run npm run k6:load:startscreen && npm run k6:spike:startscreen"
+    "k6:all": "npm run k6:load:leaderboard && npm run k6:spike:leaderboard"
   },
   "keywords": [],
   "author": "",
