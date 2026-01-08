@@ -25,32 +25,32 @@ Returns initial content required to render the start screen.
 
 ### 1. Response Time Requirements
 
-| Route | Metric | Threshold |
-
-| /leaderboard/ | p95 response time | ≤ 800 ms |
-| /leaderboard/ | average response time | ≤ 500 ms |
-| /startscreen/ | p95 response time | ≤ 700 ms |
-| /startscreen/ | average response time | ≤ 450 ms |
+| Route         | Metric                | Threshold  |
+|---------------|---------------------- |------------|
+| /leaderboard/ | p95 response time     | ≤ 200 ms   |
+| /leaderboard/ | average response time | ≤ 100 ms   |
+| /startscreen/ | p95 response time     | ≤ 200 ms   |
+| /startscreen/ | average response time | ≤ 100 ms   |
 
 ---
 
 ### 2. Fault Tolerance Requirements
 
-| Route | Requirement |
-
-| All routes | HTTP error rate ≤ 1% |
-| All routes | No HTTP 5xx responses |
+| Route      | Requirement                |
+|------------|--------------------------- |
+| All routes | HTTP error rate ≤ 1%       |
+| All routes | No HTTP 5xx responses      |
 
 ---
 
 ### 3. Concurrency Requirements
 
-| Route | Test Type | Virtual Users |
-
-| /leaderboard/ | Load Test | 15 VUs for 60 seconds |
-| /leaderboard/ | Spike Test | Spike up to 35 VUs |
-| /startscreen/ | Load Test | 12 VUs for 60 seconds |
-| /startscreen/ | Spike Test | Spike up to 30 VUs |
+| Route         | Test Type  | Virtual Users           |
+|---------------|------------|------------------------ |
+| /leaderboard/ | Load Test  | 50 VUs for 60 seconds   |
+| /leaderboard/ | Spike Test | Spike up to 500 VUs     |
+| /startscreen/ | Load Test  | 12 VUs for 60 seconds   |
+| /startscreen/ | Spike Test | Spike up to 30 VUs      |
 
 ---
 
