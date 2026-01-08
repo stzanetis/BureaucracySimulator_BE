@@ -14,7 +14,7 @@ import { sendSuccess } from '../utils/responses.js';
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getLeaderboard = async (_req, res, next) => {
+export const getLeaderboard = async (_, res, next) => {
   try {
     const data = await getLeaderboardService();
     sendSuccess(res, { leaderboard: data }, 'Leaderboard retrieved.');

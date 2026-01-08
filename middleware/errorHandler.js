@@ -25,7 +25,7 @@ export const notFoundHandler = (req, res) => {
  * @param {import('express').Response} res
  * @param {Function} next
  */
-export const errorHandler = (err, _req, res) => {
+export const errorHandler = (err, _, res) => {
   // eslint-disable-next-line no-console
   console.error('Error:', err);
 
