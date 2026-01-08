@@ -1,4 +1,4 @@
-import { leaderboard } from '../config/mockData.js';
+import { leaderboard } from '../config/mockData/index.js';
 
 /**
  * Compute percentile based on elapsed time vs leaderboard scores.

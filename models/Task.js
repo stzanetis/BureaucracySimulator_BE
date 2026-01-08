@@ -40,6 +40,10 @@ const taskSchema = new Schema(
   }
 );
 
+// Performance indexes
+taskSchema.index({ completed: 1 });
+taskSchema.index({ taskType: 1 });
+
 /**
  * Mongoose model for tasks.
  * Uses existing model if already compiled (for hot-reloading support).

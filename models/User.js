@@ -37,6 +37,10 @@ const userSchema = new Schema(
   }
 );
 
+// Performance indexes
+userSchema.index({ nickname: 1 });
+userSchema.index({ createdAt: -1 });
+
 /**
  * Mongoose model for users.
  * Uses existing model if already compiled (for hot-reloading support).

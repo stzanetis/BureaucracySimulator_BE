@@ -1,7 +1,7 @@
-import { coffeePaymentState, taskTemplates, users } from '../config/mockData.js';
-import { CAPTCHAs } from '../config/mockData.js'
+import { coffeePaymentState, taskTemplates, users } from '../config/mockData/index.js';
+import { CAPTCHAs } from '../config/mockData/index.js'
 import { AppError } from '../utils/helpers.js';
-import { formTemplate, puzzleTemplates } from '../config/mockData.js';
+import { formTemplate, puzzleTemplates } from '../config/mockData/index.js';
 
 /**
  * Retrieve the current user's to-do list.
