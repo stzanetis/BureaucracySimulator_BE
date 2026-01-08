@@ -1,9 +1,20 @@
+/**
+ * @fileoverview Integration tests for Task API endpoints.
+ * Tests task retrieval, completion, deletion, and specialized task types
+ * (forms, puzzles, payment portal).
+ * @module test/tasks.test
+ */
+
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Use custom beforeHook to create test user for task operations
+/**
+ * Register test hooks with a custom beforeHook to create a test user.
+ * This user is needed because task operations require an existing user context.
+ */
 registerTestHooks(test, {
 	beforeHook: async (t) => {
+		// Create a dedicated test user for task operations
 		const nickname = `TaskTestUser${Date.now()}`;
 		await t.context.got.post("user/", {
 			json: { nickname, seed: 12345 }
@@ -11,6 +22,14 @@ registerTestHooks(test, {
 	}
 });
 
+/* ============================================
+ * Task List Endpoint Tests
+ * GET /user/homescreen/todolist - Retrieve user's task list
+ * ============================================ */
+
+/**
+ * Test: Retrieve the current user's to-do list
+ */
 test("GET /user/homescreen/todolist returns task list", async (t) => {
 	const { body, statusCode } = await t.context.got("user/homescreen/todolist");
 	

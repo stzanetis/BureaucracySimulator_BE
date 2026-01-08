@@ -1,8 +1,23 @@
+/**
+ * @fileoverview Integration tests for the Startscreen API endpoint.
+ * Tests the /startscreen/ route that returns the game's music playlist.
+ * @module test/startscreen.test
+ */
+
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
+// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
+/* ============================================
+ * Startscreen Endpoint Tests
+ * GET /startscreen/ - Returns background music URLs
+ * ============================================ */
+
+/**
+ * Test: Verify startscreen returns a non-empty songlist array
+ */
 test("GET /startscreen/ returns songlist", async (t) => {
 	const { body, statusCode } = await t.context.got("startscreen/");
 	
