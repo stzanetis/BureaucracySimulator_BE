@@ -152,7 +152,7 @@ export const resetCoffee = async (_, res, next) => {
  * @param {Function} next
  * @returns {Promise<void>}
  */
-export const getFormTask = async (req, res, next) => {
+export const getFormTask = async (_, res, next) => {
   try {
     const form = await getFormDefinition();
     sendSuccess(res, form, 'Form loaded.');
