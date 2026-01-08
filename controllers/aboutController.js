@@ -5,7 +5,7 @@ import { sendSuccess } from '../utils/responses.js';
  * GET /about-us/
  * Returns About Us paragraph.
  *
- * @param {import('express').Request} req
+ * @param {import('express').Request} _req
  * @param {import('express').Response} res
  * @param {Function} next
  * @returns {Promise<void>}
