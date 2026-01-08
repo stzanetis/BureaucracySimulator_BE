@@ -32,21 +32,38 @@ jobs:
 
       - name: Start server
         run: |
-          npm start &
+          npm start > server.log 2>&1 &
+          echo $! > server.pid
           sleep 5
         env:
           PORT: 4000
+          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
+          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
 
       - name: Wait for server to be ready
         run: |
+          AUTH=$(echo -n "${{ secrets.BASIC_AUTH_USER }}:${{ secrets.BASIC_AUTH_PASS }}" | base64)
           for i in {1..30}; do
-            if curl -s http://localhost:4000/leaderboard/ > /dev/null; then
+            # Check if server process is still running
+            if [ -f server.pid ] && ! kill -0 $(cat server.pid) 2>/dev/null; then
+              echo "Server process died. Logs:"
+              cat server.log
+              exit 1
+            fi
+            # Try to connect (use -f to fail on HTTP errors, but we just want to check connectivity)
+            if curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Basic $AUTH" http://localhost:4000/leaderboard/ | grep -q "200\|401"; then
               echo "Server is ready"
               break
             fi
             echo "Waiting for server... ($i/30)"
             sleep 1
           done
+          # Final check - verify server is actually responding
+          if ! curl -s -H "Authorization: Basic $AUTH" http://localhost:4000/leaderboard/ > /dev/null; then
+            echo "Server failed to start properly. Logs:"
+            cat server.log
+            exit 1
+          fi
 
       - name: Install k6
         run: |
