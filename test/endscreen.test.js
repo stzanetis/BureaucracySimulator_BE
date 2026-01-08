@@ -1,30 +1,7 @@
-import 'dotenv/config';
-import http from "node:http";
 import test from "ava";
-import got from "got";
-import app from "../app.js";
+import { registerTestHooks } from "./_testHelpers.js";
 
-test.before(async (t) => {
-	t.context.server = http.createServer(app);
-	const server = t.context.server.listen();
-	const { port } = server.address();
-	
-	const username = process.env.BASIC_AUTH_USER;
-	const password = process.env.BASIC_AUTH_PASS;
-	const credentials = Buffer.from(`${username}:${password}`).toString('base64');
-	t.context.got = got.extend({
-		responseType: "json",
-		prefixUrl: `http://localhost:${port}`,
-		headers: {
-			'Authorization': `Basic ${credentials}`
-		},
-		throwHttpErrors: false
-	});
-});
-
-test.after.always((t) => {
-	t.context.server.close();
-});
+registerTestHooks(test);
 
 test("GET /endscreen/ returns endscreen stats", async (t) => {
 	const { body, statusCode } = await t.context.got("endscreen/");

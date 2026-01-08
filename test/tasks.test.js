@@ -1,35 +1,14 @@
-import 'dotenv/config';
-import http from "node:http";
 import test from "ava";
-import got from "got";
-import app from "../app.js";
+import { registerTestHooks } from "./_testHelpers.js";
 
-test.before(async (t) => {
-	t.context.server = http.createServer(app);
-	const server = t.context.server.listen();
-	const { port } = server.address();
-	
-	const username = process.env.BASIC_AUTH_USER;
-	const password = process.env.BASIC_AUTH_PASS;
-	const credentials = Buffer.from(`${username}:${password}`).toString('base64');
-	t.context.got = got.extend({
-		responseType: "json",
-		prefixUrl: `http://localhost:${port}`,
-		headers: {
-			'Authorization': `Basic ${credentials}`
-		},
-		throwHttpErrors: false
-	});
-	
-	// Create a test user for task operations
-	const nickname = `TaskTestUser${Date.now()}`;
-	await t.context.got.post("user/", {
-		json: { nickname, seed: 12345 }
-	});
-});
-
-test.after.always((t) => {
-	t.context.server.close();
+// Use custom beforeHook to create test user for task operations
+registerTestHooks(test, {
+	beforeHook: async (t) => {
+		const nickname = `TaskTestUser${Date.now()}`;
+		await t.context.got.post("user/", {
+			json: { nickname, seed: 12345 }
+		});
+	}
 });
 
 test("GET /user/homescreen/todolist returns task list", async (t) => {
