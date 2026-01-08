@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Task-related route definitions.
+ * Handles all endpoints for task management, including specialized
+ * routes for form tasks, puzzle tasks, and the coffee payment portal.
+ * @module routes/taskRoutes
+ */
+
 import { Router } from 'express';
 import {
   deleteTask,
@@ -6,60 +13,79 @@ import {
   getToDoList,
   payCoffee,
   putTaskCheck,
-  resetCoffee
+  resetCoffee,
+  getFormTask,
+  putFormTaskCheck,
+  getPuzzleTask,
+  putPuzzleTaskCheck
 } from '../controllers/taskController.js';
 import { validateTaskUpdate } from '../middleware/validation.js';
-import { getFormTask, putFormTaskCheck } from '../controllers/taskController.js';
-import { getPuzzleTask, putPuzzleTaskCheck } from '../controllers/taskController.js';
 
 const router = Router();
 
 /**
- * GET /user/homescreen/todolist
+ * Registers core task CRUD routes.
+ * @param {Router} taskRouter - Express router instance
  */
-router.get('/homescreen/todolist', getToDoList);
+const registerCoreTaskRoutes = (taskRouter) => {
+  /** @route GET /user/homescreen/todolist - Retrieve user's task list */
+  taskRouter.get('/homescreen/todolist', getToDoList);
+
+  /** @route GET /user/homescreen/tasks/:taskID - Get task by ID */
+  taskRouter.get('/homescreen/tasks/:taskID/', getTaskById);
+
+  /** @route PUT /user/homescreen/tasks/:taskID - Update task completion */
+  taskRouter.put('/homescreen/tasks/:taskID', validateTaskUpdate, putTaskCheck);
+
+  /** @route DELETE /user/homescreen/tasks/:taskID - Remove a task */
+  taskRouter.delete('/homescreen/tasks/:taskID', deleteTask);
+};
 
 /**
- * GET /user/homescreen/tasks/:taskID/
- * PUT /user/homescreen/tasks/:taskID
- * DELETE /user/homescreen/tasks/:taskID
+ * Registers coffee task payment portal routes.
+ * @param {Router} taskRouter - Express router instance
  */
-router.get('/homescreen/tasks/:taskID/', getTaskById);
-router.put('/homescreen/tasks/:taskID', validateTaskUpdate, putTaskCheck);
-router.delete('/homescreen/tasks/:taskID', deleteTask);
+const registerCoffeePaymentRoutes = (taskRouter) => {
+  const basePath = '/homescreen/tasks/9/payment-portal';
+
+  /** @route GET /user/homescreen/tasks/9/payment-portal - Get payment status */
+  taskRouter.get(`${basePath}/`, getCoffeePaymentPortalStatus);
+
+  /** @route POST /user/homescreen/tasks/9/payment-portal/pay - Process payment */
+  taskRouter.post(`${basePath}/pay`, payCoffee);
+
+  /** @route POST /user/homescreen/tasks/9/payment-portal/reset - Reset payment */
+  taskRouter.post(`${basePath}/reset`, resetCoffee);
+};
 
 /**
- * GET /user/homescreen/tasks/9/payment-portal/
- * Non-OpenAPI helpers:
- *   POST /user/homescreen/tasks/9/payment-portal/pay
- *   POST /user/homescreen/tasks/9/payment-portal/reset
+ * Registers form task routes.
+ * @param {Router} taskRouter - Express router instance
  */
-router.get('/homescreen/tasks/9/payment-portal/', getCoffeePaymentPortalStatus);
-router.post('/homescreen/tasks/9/payment-portal/pay', payCoffee);
-router.post('/homescreen/tasks/9/payment-portal/reset', resetCoffee);
+const registerFormTaskRoutes = (taskRouter) => {
+  /** @route GET /user/homescreen/tasks/:taskID/form - Get form template */
+  taskRouter.get('/homescreen/tasks/:taskID/form', getFormTask);
 
-/** 
- * FORM TASK:
- * GET /user/homescreen/tasks/:taskID/form
- */
-router.get('/homescreen/tasks/:taskID/form', getFormTask);
+  /** @route PUT /user/homescreen/tasks/:taskID/form-check - Validate form */
+  taskRouter.put('/homescreen/tasks/:taskID/form-check', putFormTaskCheck);
+};
 
 /**
- * FORM TASK:
- * PUT /user/homescreen/tasks/:taskID/form-check
+ * Registers puzzle task routes.
+ * @param {Router} taskRouter - Express router instance
  */
-router.put('/homescreen/tasks/:taskID/form-check', putFormTaskCheck);
+const registerPuzzleTaskRoutes = (taskRouter) => {
+  /** @route GET /user/homescreen/tasks/:taskID/puzzle - Get puzzle data */
+  taskRouter.get('/homescreen/tasks/:taskID/puzzle', getPuzzleTask);
 
-/** 
- * PUZZLE TASK:
- * GET /user/homescreen/tasks/:taskID/puzzle
- */
-router.get("/homescreen/tasks/:taskID/puzzle", getPuzzleTask);
+  /** @route PUT /user/homescreen/tasks/:taskID/puzzle-check - Validate answer */
+  taskRouter.put('/homescreen/tasks/:taskID/puzzle-check', putPuzzleTaskCheck);
+};
 
-/**
- * PUZZLE TASK:
- * PUT /user/homescreen/tasks/:taskID/puzzle-check
- */
-router.put("/homescreen/tasks/:taskID/puzzle-check", putPuzzleTaskCheck);
+// Register all route groups
+registerCoreTaskRoutes(router);
+registerCoffeePaymentRoutes(router);
+registerFormTaskRoutes(router);
+registerPuzzleTaskRoutes(router);
 
 export default router;
