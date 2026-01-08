@@ -216,13 +216,11 @@ export const getPuzzleTask = async (_req, res, next) => {
 export const putPuzzleTaskCheck = async (req, res, next) => {
   try {
     const taskId = Number(req.params.taskID);
-    const { puzzleNumber, puzzleKey, answer } = req.body;
+    const { puzzleKey, answer } = req.body;
 
     const isTaskCompleted = await updatePuzzleTaskStatus(
       taskId,
-      puzzleNumber,
-      puzzleKey,
-      answer
+      { puzzleKey, answer }
     );
 
     sendSuccess(res, { isTaskCompleted }, "Puzzle evaluated.");
