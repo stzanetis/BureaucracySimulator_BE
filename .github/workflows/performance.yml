@@ -2,7 +2,7 @@ name: Performance Tests
 
 on:
   push:
-    branches: [main, testing, vgzoidis]
+    branches: [main, testing]
   pull_request:
     branches: [main, testing]
   workflow_dispatch: # Allow manual triggering

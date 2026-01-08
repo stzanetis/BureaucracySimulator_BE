@@ -1,20 +1,7 @@
-/**
- * @fileoverview Unit tests for utility helper functions.
- * Tests AppError class and seeded random number generator.
- * @module test/helpers.test
- */
-
 import test from "ava";
 import { AppError, createSeededRng } from "../utils/helpers.js";
 
-/* ============================================
- * AppError Class Tests
- * Custom error class with HTTP status and error codes
- * ============================================ */
-
-/**
- * Test: AppError creates an error with all specified properties
- */
+// Test AppError class
 test("AppError creates error with correct properties", (t) => {
 	const error = new AppError("Test error", 400, "TEST_ERROR");
 	

@@ -1,23 +1,8 @@
-/**
- * @fileoverview Integration tests for the About Us API endpoint.
- * Tests the /about-us/ route that returns game information.
- * @module test/about.test
- */
-
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
-/* ============================================
- * About Us Endpoint Tests
- * GET /about-us/ - Returns game description text
- * ============================================ */
-
-/**
- * Test: Verify basic about-us response structure and content
- */
 test("GET /about-us/ returns about us text", async (t) => {
 	const { body, statusCode } = await t.context.got("about-us/");
 	

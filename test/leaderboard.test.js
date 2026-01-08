@@ -1,25 +1,8 @@
-/**
- * @fileoverview Integration tests for the Leaderboard API endpoints.
- * Tests CRUD operations: list, create/update, and delete leaderboard entries.
- * @module test/leaderboard.test
- */
-
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
-/* ============================================
- * Leaderboard Endpoint Tests
- * GET /leaderboard/ - List all entries
- * PUT /leaderboard/:name - Create or update entry
- * DELETE /leaderboard/:name - Remove entry
- * ============================================ */
-
-/**
- * Test: GET /leaderboard/ returns array of entries
- */
 test("GET /leaderboard/ returns leaderboard data", async (t) => {
 	const { body, statusCode } = await t.context.got("leaderboard/");
 	

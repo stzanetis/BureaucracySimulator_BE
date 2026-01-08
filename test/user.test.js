@@ -1,24 +1,8 @@
-/**
- * @fileoverview Integration tests for User API endpoints.
- * Tests user creation, task list generation, and user listing.
- * @module test/user.test
- */
-
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
-/* ============================================
- * User Endpoint Tests
- * POST /user/ - Create new user with task list
- * GET /user/ - List all users
- * ============================================ */
-
-/**
- * Test: Create a new user and verify task list is generated
- */
 test("POST /user/ creates user with tasks", async (t) => {
 	const nickname = `TestUser${Date.now()}`;
 	const seed = 12345;

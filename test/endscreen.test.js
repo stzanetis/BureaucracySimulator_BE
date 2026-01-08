@@ -1,24 +1,8 @@
-/**
- * @fileoverview Integration tests for the Endscreen API endpoints.
- * Tests completion stats, percentile calculations, and leaderboard submission.
- * @module test/endscreen.test
- */
-
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
-/* ============================================
- * Endscreen Endpoint Tests
- * GET /endscreen/ - Retrieve completion stats
- * POST /endscreen/ - Submit final stats and percentile
- * ============================================ */
-
-/**
- * Test: GET /endscreen/ returns stats with elapsed time and percentile
- */
 test("GET /endscreen/ returns endscreen stats", async (t) => {
 	const { body, statusCode } = await t.context.got("endscreen/");
 	

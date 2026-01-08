@@ -1,23 +1,8 @@
-/**
- * @fileoverview Integration tests for error handling middleware.
- * Tests 404 responses, JSON parsing errors, and error response structure.
- * @module test/errors.test
- */
-
 import test from "ava";
 import { registerTestHooks } from "./_testHelpers.js";
 
-// Register shared test setup (server creation, auth client)
 registerTestHooks(test);
 
-/* ============================================
- * Error Handling Tests
- * Validates consistent error responses across HTTP methods
- * ============================================ */
-
-/**
- * Test: Non-existent routes return proper 404 with error structure
- */
 test("GET request to non-existent route returns 404", async (t) => {
 	const { body, statusCode } = await t.context.got("nonexistent/route");
 	
