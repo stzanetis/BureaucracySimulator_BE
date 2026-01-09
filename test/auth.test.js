@@ -1,24 +1,9 @@
 import 'dotenv/config';
-import http from "node:http";
 import test from "ava";
-import got from "got";
-import app from "../app.js";
+import { registerTestHooks } from "./_testHelpers.js";
 
-test.before(async (t) => {
-	t.context.server = http.createServer(app);
-	const server = t.context.server.listen();
-	const { port } = server.address();
-	
-	t.context.gotBase = got.extend({
-		responseType: "json",
-		prefixUrl: `http://localhost:${port}`,
-		throwHttpErrors: false
-	});
-});
-
-test.after.always((t) => {
-	t.context.server.close();
-});
+// Use skipAuth to test authentication behavior
+registerTestHooks(test, { skipAuth: true });
 
 test("GET request without auth header returns 401", async (t) => {
 	const { body, statusCode } = await t.context.gotBase("startscreen/");
